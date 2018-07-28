@@ -10,8 +10,11 @@ namespace ReadTextFile.Entities
     {
         public string Descricao { get; set; }
         public string Label { get; set; }
-        public decimal Time { get; set; }
         public string Level { get; set; }
+        public decimal TimeDevelopment { get; set; }
+        public decimal TimeTest { get; set; }
+
+
 
         public List<SubTopic2> Topics { get; set; }
 

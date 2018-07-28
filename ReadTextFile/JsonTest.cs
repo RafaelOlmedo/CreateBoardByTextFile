@@ -15,7 +15,7 @@ namespace ReadTextFile
             #region JSON TEST.   
 
             string sFilePath = @"C:\Users\rafael.freitas\Desktop\Projeto Estudo\";
-            string sFile = @"EstimativaWaze.txt";
+            
 
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
