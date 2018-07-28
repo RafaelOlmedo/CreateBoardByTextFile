@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ReadTextFile/bin/Debug
+/ReadTextFile/obj/Debug
+/.vs/ReadTextFile/v15/Server/sqlite3
