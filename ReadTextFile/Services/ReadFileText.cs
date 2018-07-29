@@ -69,13 +69,12 @@ namespace ReadTextFile.Services
 
                 // Percorre todas as linhas de determinado tópico para preencher o objeto respeitando a hierarquia das informações.
                 foreach (var topicLine in topicLines)
-                {          
+                {
                     // Primeira linha da hierarquia.
                     if (topicLine.StartsWith("# "))
                     {
-                        //explodeLevelOneInformations(allTopic, topicLine);
-                        // Somente preenche a descrição.
-                        allTopic.Descricao = topicLine.ToString();
+                        allTopic.explodesLevelOneInformations(allTopic, topicLine);
+                        
                         iLastLevel = 1;
                     }
                     // Segunda linha da hierarquia.
@@ -130,7 +129,7 @@ namespace ReadTextFile.Services
 
                         // Caso a última linha seja diferente de 3, indica que essa linha é filha de um subtópico diferente dos anteriores,
                         // portanto necessário limpar a lista.
-                        if (iLastLevel != 3)
+                        if (iLastLevel < 3)
                             lstSubTopic3 = new List<SubTopic3>();
 
                         // Adiciona o tópico nível 3 atual ao objeto.
@@ -145,7 +144,7 @@ namespace ReadTextFile.Services
                         else if (iLastLevel == 3)
                             lstSubTopic3.Add(subTopic3);
 
-                        if (iLastLevel != 4)
+                        if (iLastLevel < 4)
                             lstSubTopic4 = new List<SubTopic4>();
 
                         subTopic4 = new SubTopic4(topicLine.ToString());
@@ -202,14 +201,6 @@ namespace ReadTextFile.Services
 
             // Salva arquivo Json.
             System.IO.File.WriteAllText(configProperties.FilePath + "JSONTest.json", jsonString.ToString());
-        }
-
-        //public static void explodeLevelOneInformations(Topic topic, string line)
-        //{
-        //    var a = line.Split(' ');
-
-            
-
-        //}
+        }      
     }
 }
