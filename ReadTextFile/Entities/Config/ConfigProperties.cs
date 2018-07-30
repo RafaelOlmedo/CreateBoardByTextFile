@@ -33,7 +33,7 @@ namespace ReadTextFile.Entities.Config
             {
                 // Caminho do arquivo de configuração.
                 // TODO - Alterar para de alguma forma pegar do caminho do projeto.
-                string ConfigPath = @"C:\Users\RAFA-\Desktop\Estudo\Trello API\Projeto Estudo\CreateBoardByTextFile\CreateBoardByTextFile\ReadTextFile\Config\ConfigProperties.json";
+                string ConfigPath = Environment.CurrentDirectory + @"\Config\ConfigProperties.json";
 
                 if (!System.IO.File.Exists(ConfigPath))
                     return configProperties;
