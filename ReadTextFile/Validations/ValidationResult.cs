@@ -30,6 +30,10 @@ namespace ReadTextFile.Validations
         {
             _errors.Add(error);
         }
+        public void Add(string message)
+        {
+            _errors.Add(new ValidationError(_errors.Count() + 1, message));
+        }
         public void Add(int code, string message)
         {
             _errors.Add(new ValidationError(code, message));
