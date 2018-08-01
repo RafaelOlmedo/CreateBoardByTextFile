@@ -1,4 +1,5 @@
 ﻿using ReadTextFile.Entities.Base;
+using ReadTextFile.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,8 @@ namespace ReadTextFile.Entities
 
                     if (decimal.TryParse(sTime, out dTime))
                         topic.TimeDevelopment = dTime;
+                    else
+                        topic.validationResults.Add(ErrosCode.HorasTesteInvalida, $@"Valor informado para horas de desenvolvimento não é numérico.");
 
                     // TODO = Caso não seja número, realizar tratamento.
 

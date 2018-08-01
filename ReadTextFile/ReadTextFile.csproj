@@ -51,6 +51,7 @@
     <Compile Include="Entities\SubTopic3.cs" />
     <Compile Include="Entities\SubTopic4.cs" />
     <Compile Include="Entities\SubTopic5.cs" />
+    <Compile Include="Constants\ErrosCode.cs" />
     <Compile Include="JsonTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,10 +15,9 @@ namespace ReadTextFile.Entities.Config
 
         public string FilePath { get; set; }
         public string FileName { get; set; }
+        
 
-        //public Validations.ValidationResult validationResults { get; set; }
-
-        public ConfigProperties()
+        public ConfigProperties() 
         {
             //validationResults = new Validations.ValidationResult();
         }
@@ -54,7 +53,7 @@ namespace ReadTextFile.Entities.Config
             }
             catch (Exception ex)
             {
-                configProperties.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
+                this.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
             }
 
             return configProperties;
@@ -62,14 +61,13 @@ namespace ReadTextFile.Entities.Config
 
         public ConfigProperties validIfFilePathExists()
         {
-            // TODO - Validar se validar dessa maneira está correto.
             try
             {
                 if (string.IsNullOrEmpty(this.FilePath))
-                    this.validationResults.Add("Caminho do arquivo não informado.");
-
-                if (!this.validationResults.IsValid)
+                {
+                    this.validationResults.Add("Caminho do arquivo da estimativa não informado.");
                     return this;
+                }
 
                 if (!System.IO.Directory.Exists(this.FilePath))
                     this.validationResults.Add($@"Caminho do arquivo informado não existe. Caminho: {this.FilePath}. ");
@@ -83,27 +81,34 @@ namespace ReadTextFile.Entities.Config
             return this;
         }
 
-        public ConfigProperties validIfFileExists(ConfigProperties configProperties)
+        public ConfigProperties validIfFileExists()
         {
-            // TODO - Validar se validar dessa maneira está correto.
             try
             {
-                if (string.IsNullOrEmpty(configProperties.FileName))
-                    configProperties.validationResults.Add("Arquivo não informado.");
+                if (string.IsNullOrEmpty(this.FileName))
+                {
+                    this.validationResults.Add("Arquivo de estimativa não informado.");
+                    return this;
+                }
 
-                if (!configProperties.validationResults.IsValid)
-                    return configProperties;
-
-                if (!System.IO.File.Exists(configProperties.FilePath + configProperties.FileName))
-                    configProperties.validationResults.Add($@"Arquivo informado não existe. Arquivo: {configProperties.FilePath + configProperties.FileName}. ");
+                if (!System.IO.File.Exists(this.FilePath + this.FileName))
+                    this.validationResults.Add($@"Arquivo informado não existe. Arquivo: {this.FilePath + this.FileName}. ");
 
             }
             catch (Exception ex)
             {
-                configProperties.validationResults.Add($@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
+                this.validationResults.Add($@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
             }
 
-            return configProperties;
+            return this;
+        }
+
+        public ConfigProperties validate()
+        {
+            validIfFilePathExists();
+            validIfFileExists();
+
+            return this;
         }
 
     }

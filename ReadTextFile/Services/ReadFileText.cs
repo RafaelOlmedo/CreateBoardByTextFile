@@ -13,7 +13,6 @@ namespace ReadTextFile.Services
     {
         public static List<Topic> readTextFileToObject(ConfigProperties configProperties)
         {
-
             // Realiza a leitura do arquivo e cada linha vira um indice o array.
             string[] lines = System.IO.File.ReadAllLines(configProperties.FilePath + configProperties.FileName);
 
@@ -74,7 +73,14 @@ namespace ReadTextFile.Services
                     if (topicLine.StartsWith("# "))
                     {
                         allTopic.explodesLevelOneInformations(allTopic, topicLine);
-                        
+
+                        if (!allTopic.validationResults.IsValid)
+                        {
+                            lstAllTopics.Add(allTopic);
+                            return lstAllTopics;
+                        }
+
+
                         iLastLevel = 1;
                     }
                     // Segunda linha da hierarquia.
