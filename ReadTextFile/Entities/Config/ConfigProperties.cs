@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ReadTextFile.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,16 +9,18 @@ using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities.Config
 {
-    public class ConfigProperties
+    public class ConfigProperties : BaseEntity
     {
         // TODO - Private set.
 
-        public string FilePath{ get; set; }
+        public string FilePath { get; set; }
         public string FileName { get; set; }
+
+        //public Validations.ValidationResult validationResults { get; set; }
 
         public ConfigProperties()
         {
-
+            //validationResults = new Validations.ValidationResult();
         }
 
         /// <summary>
@@ -35,22 +38,26 @@ namespace ReadTextFile.Entities.Config
                 // TODO - Alterar para de alguma forma pegar do caminho do projeto.
                 string ConfigPath = Environment.CurrentDirectory + @"\Config\ConfigProperties.json";
 
-                if (!System.IO.File.Exists(ConfigPath))
-                    return configProperties;
+                if (System.IO.File.Exists(ConfigPath))
+                    configProperties.validationResults.Add("Arquivo de configuração não encontrado.");
 
-                // Realiza a leitura do arquivo.
-                StreamReader r = new StreamReader(ConfigPath);
-                string json = r.ReadToEnd();
+                if(configProperties.validationResults.IsValid)
+                {
+                    // Realiza a leitura do arquivo.
+                    StreamReader r = new StreamReader(ConfigPath);
+                    string json = r.ReadToEnd();
 
-                // Deserializa o JSON para o objeto.
-                configProperties = JsonConvert.DeserializeObject<ConfigProperties>(json);
+                    // Deserializa o JSON para o objeto.
+                    configProperties = JsonConvert.DeserializeObject<ConfigProperties>(json);
+                }
+                
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                // Incluir tratamento de log.
+                configProperties.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
             }
-           
+
 
             return configProperties;
         }
