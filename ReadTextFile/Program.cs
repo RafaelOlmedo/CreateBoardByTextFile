@@ -53,20 +53,22 @@ namespace ReadTextFile
 
             List<Topic> lstTopics = ReadFileText.readTextFileToObject(configProperties);
 
-            var v = lstTopics.Where(t => !t.validationResults.IsValid).ToList();
+            // Recupera o primeiro tópico que possa estar com erro.
+            var topicWithError = lstTopics.Where(t => !t.validationResults.IsValid).ToList().FirstOrDefault();
 
-            if (v.Count() > 0)
+            if (topicWithError != null)
             {
-                if(v.FirstOrDefault().validationResults.Errors.FirstOrDefault().Code == ErrosCode.HorasDesenvolvimentoInvalida)
-                {
-                    sharedLog.WriteLog(v.FirstOrDefault().validationResults.Errors.FirstOrDefault().Message + $@"Tópico: {v.FirstOrDefault().Descricao}", "", SharedLog.FileName.Date, SharedLog.LogType.Error);
-                    endProcess(sharedLog);
-                    return;
-                }
-                
-            }
+                // Caso erro seja por valor inválido no tempo para teste ou desenvolvimento, adiciona à mensagem de erro a descrição do tópico.
+                if (topicWithError.validationResults.Errors.FirstOrDefault().Code == ErrosCode.HorasDesenvolvimentoInvalida ||
+                        topicWithError.validationResults.Errors.FirstOrDefault().Code == ErrosCode.HorasTesteInvalida)
+                    topicWithError.validationResults.Errors.FirstOrDefault().Message += $" Tópico: {topicWithError.Description}";
 
-            // TODO - Realizar tratamento.
+                sharedLog.WriteLog(topicWithError.validationResults.Errors.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                endProcess(sharedLog);
+                return;
+
+            }
+            
             if (lstTopics == null)
                 sharedLog.WriteLog("Erro ao realizar leitura do arquivo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             else
@@ -78,12 +80,13 @@ namespace ReadTextFile
 
             sharedLog.WriteLog($@"Horas desenvolvimento: {d}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
+            endProcess(sharedLog);
+
         }
 
         public static void endProcess(SharedLog sharedLog)
         {
-            sharedLog.WriteLog($@"Finalizando processo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
-
+            sharedLog.WriteLog($@"Processo finalizado.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
         }
     }
 }
