@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Base\BaseEntity.cs" />
     <Compile Include="Entities\Config\ConfigProperties.cs" />
     <Compile Include="Entities\SubTopic2.cs" />
     <Compile Include="Entities\SubTopic3.cs" />

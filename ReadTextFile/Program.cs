@@ -15,7 +15,7 @@ namespace ReadTextFile
     {
         static void Main(string[] args)
         {
-            const string separator = "=========================================================================================================================================================";
+            const string separator = "=================================================================================================================================================";
             
             SharedLog sharedLog = new SharedLog() ;
 
@@ -28,12 +28,17 @@ namespace ReadTextFile
             ConfigProperties configProperties =
                 new ConfigProperties().readJsonConfigFile();
 
-            if (string.IsNullOrEmpty(configProperties.FilePath) ||
-                string.IsNullOrEmpty(configProperties.FileName))
+            if(!configProperties.validationResults.IsValid)
             {
-                // TODO - Incluir tratamento.
-
+                // TODO - Escrever erro corretamente.
+                sharedLog.WriteLog("Erro", string.Empty, SharedLog.FileName.Date, SharedLog.LogType.Error);
             }
+
+            configProperties.validIfFilePathExists();
+
+            if(!configProperties.validationResults.IsValid)
+                sharedLog.WriteLog("Erro.", "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+
 
             sharedLog.WriteLog($@"Informações recuperadas com sucesso: [Caminho do arquivo:] {configProperties.FilePath} [Nome do arquivo:] {configProperties.FileName}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
