@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ReadTextFile.Entities.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities
 {
-    public class SubTopic2
+    public class SubTopic2 : BaseEntity
     {
         public string DescricaoSubTopic2 { get; set; }
         public List<SubTopic3> Topics { get; set; }
