@@ -10,11 +10,11 @@ namespace ReadTextFile.Entities
 {
     public class Topic : BaseEntity
     {
-        public string Descricao { get; set; }
+        public string Description { get; set; }
         public string Label { get; set; }
         public string Level { get; set; }
         public decimal TimeDevelopment { get; set; }
-        public decimal TimeTest { get; set; }
+        public decimal TimeTest { get; set; }        
 
         public List<SubTopic2> Topics { get; set; }
 
@@ -47,9 +47,7 @@ namespace ReadTextFile.Entities
                     if (decimal.TryParse(sTime, out dTime))
                         topic.TimeDevelopment = dTime;
                     else
-                        topic.validationResults.Add(ErrosCode.HorasTesteInvalida, $@"Valor informado para horas de desenvolvimento não é numérico.");
-
-                    // TODO = Caso não seja número, realizar tratamento.
+                        topic.validationResults.Add(ErrosCode.HorasDesenvolvimentoInvalida, $@"Valor informado para horas de desenvolvimento não é numérico.");                   
 
                 }
                 else if (lineSplitBySpace[iC].ToString() == "%{background:yellow}[T]")
@@ -59,13 +57,15 @@ namespace ReadTextFile.Entities
 
                     if (decimal.TryParse(sTime, out dTime))
                         topic.TimeTest = dTime;
+                    else
+                        topic.validationResults.Add(ErrosCode.HorasTesteInvalida, $@"Valor informado para horas de teste não é numérico.");
 
                     // TODO = Caso não seja número, realizar tratamento.
 
                     #region Tratamento para a descrição do tópico.
                     for (int iT = iC + 2; iT < lineSplitBySpace.Length; iT++)
                     {
-                        topic.Descricao += lineSplitBySpace[iT].ToString() + " ";
+                        topic.Description += lineSplitBySpace[iT].ToString() + " ";
                     }
 
                     #endregion
