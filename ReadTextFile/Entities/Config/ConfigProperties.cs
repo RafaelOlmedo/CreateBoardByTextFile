@@ -38,7 +38,7 @@ namespace ReadTextFile.Entities.Config
                 // TODO - Alterar para de alguma forma pegar do caminho do projeto.
                 string ConfigPath = Environment.CurrentDirectory + @"\Config\ConfigProperties.json";
 
-                if (System.IO.File.Exists(ConfigPath))
+                if (!System.IO.File.Exists(ConfigPath))
                     configProperties.validationResults.Add("Arquivo de configuração não encontrado.");
 
                 if(configProperties.validationResults.IsValid)
@@ -49,8 +49,7 @@ namespace ReadTextFile.Entities.Config
 
                     // Deserializa o JSON para o objeto.
                     configProperties = JsonConvert.DeserializeObject<ConfigProperties>(json);
-                }
-                
+                }               
 
             }
             catch (Exception ex)
@@ -58,6 +57,51 @@ namespace ReadTextFile.Entities.Config
                 configProperties.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
             }
 
+            return configProperties;
+        }
+
+        public ConfigProperties validIfFilePathExists()
+        {
+            // TODO - Validar se validar dessa maneira está correto.
+            try
+            {
+                if (string.IsNullOrEmpty(this.FilePath))
+                    this.validationResults.Add("Caminho do arquivo não informado.");
+
+                if (!this.validationResults.IsValid)
+                    return this;
+
+                if (!System.IO.Directory.Exists(this.FilePath))
+                    this.validationResults.Add($@"Caminho do arquivo informado não existe. Caminho: {this.FilePath}. ");
+
+            }
+            catch (Exception ex)
+            {
+                this.validationResults.Add($@"Erro ao validar caminho do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
+            }
+
+            return this;
+        }
+
+        public ConfigProperties validIfFileExists(ConfigProperties configProperties)
+        {
+            // TODO - Validar se validar dessa maneira está correto.
+            try
+            {
+                if (string.IsNullOrEmpty(configProperties.FileName))
+                    configProperties.validationResults.Add("Arquivo não informado.");
+
+                if (!configProperties.validationResults.IsValid)
+                    return configProperties;
+
+                if (!System.IO.File.Exists(configProperties.FilePath + configProperties.FileName))
+                    configProperties.validationResults.Add($@"Arquivo informado não existe. Arquivo: {configProperties.FilePath + configProperties.FileName}. ");
+
+            }
+            catch (Exception ex)
+            {
+                configProperties.validationResults.Add($@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
+            }
 
             return configProperties;
         }
