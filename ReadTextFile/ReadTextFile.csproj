@@ -62,7 +62,6 @@
     <Compile Include="Entities\Topic.cs" />
     <Compile Include="Services\ReadFileText.cs" />
     <Compile Include="Log\SharedLog.cs" />
-    <Compile Include="Services\SumHoursDevelopment.cs" />
     <Compile Include="Validations\ValidationError.cs" />
     <Compile Include="Validations\ValidationResult.cs" />
   </ItemGroup>

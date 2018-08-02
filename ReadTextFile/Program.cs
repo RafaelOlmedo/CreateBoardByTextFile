@@ -73,13 +73,17 @@ namespace ReadTextFile
             if (estimate.Topics == null)
                 sharedLog.WriteLog("Erro ao realizar leitura do arquivo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             else
-                sharedLog.WriteLog("Leitura do arquivo e recuperação das informações realizado com sucesso...", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+                sharedLog.WriteLog("Leitura do arquivo e recuperação das informações realizado com sucesso.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+    
+            // Calcula tempo total para desenvolvimento.
+            estimate.sumHoursDevelopment();
 
-            SumHoursDevelopment sumHoursDevelopment = new SumHoursDevelopment();
+            // Calcula tempo total para testes
+            estimate.sumHoursTest();
 
-            decimal d = sumHoursDevelopment.SumHoursDevelopmentOfTopics(estimate.Topics);
+            sharedLog.WriteLog($@"Horas desenvolvimento: {estimate.TotalHoursDevelopment}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+            sharedLog.WriteLog($@"Horas teste: {estimate.TotalHoursTest}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
-            sharedLog.WriteLog($@"Horas desenvolvimento: {d}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
             endProcess(sharedLog);
 

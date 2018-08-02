@@ -1,5 +1,6 @@
 ﻿using ReadTextFile.Entities.Base;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ReadTextFile.Entities
 {
@@ -7,11 +8,16 @@ namespace ReadTextFile.Entities
     {
         public string TaskName { get; set; }
         public int TaskNumber { get; set; }
-        public int TotalHoursDevelopment { get; private set; }
-        public int TotalHoursTest { get; private set; }
+        public decimal TotalHoursDevelopment { get; private set; }
+        public decimal TotalHoursTest { get; private set; }
 
         public List<Topic> Topics { get; set; }
 
+        public void sumHoursDevelopment() =>        
+            this.TotalHoursDevelopment = this.Topics.Sum(t => t.TimeDevelopment);
+
+        public void sumHoursTest() =>
+            this.TotalHoursTest = this.Topics.Sum(t => t.TimeTest);
 
 
     }
