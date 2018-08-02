@@ -35,6 +35,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Entities\Base\BaseEntity.cs" />
     <Compile Include="Entities\Config\ConfigProperties.cs" />
+    <Compile Include="Entities\Estimate.cs" />
     <Compile Include="Entities\SubTopic2.cs" />
     <Compile Include="Entities\SubTopic3.cs" />
     <Compile Include="Entities\SubTopic4.cs" />
@@ -65,7 +69,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Config\ConfigProperties.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

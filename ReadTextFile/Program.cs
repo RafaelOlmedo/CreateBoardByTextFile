@@ -51,10 +51,11 @@ namespace ReadTextFile
 
             sharedLog.WriteLog("Iniciando leitura do arquivo para recuperação das informações.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
-            List<Topic> lstTopics = ReadFileText.readTextFileToObject(configProperties);
+            Estimate estimate = new Estimate();
+            estimate.Topics = ReadFileText.readTextFileToObject(configProperties);
 
             // Recupera o primeiro tópico que possa estar com erro.
-            var topicWithError = lstTopics.Where(t => !t.validationResults.IsValid).ToList().FirstOrDefault();
+            var topicWithError = estimate.Topics.Where(t => !t.validationResults.IsValid).ToList().FirstOrDefault();
 
             if (topicWithError != null)
             {
@@ -69,14 +70,14 @@ namespace ReadTextFile
 
             }
             
-            if (lstTopics == null)
+            if (estimate.Topics == null)
                 sharedLog.WriteLog("Erro ao realizar leitura do arquivo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             else
                 sharedLog.WriteLog("Leitura do arquivo e recuperação das informações realizado com sucesso...", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
             SumHoursDevelopment sumHoursDevelopment = new SumHoursDevelopment();
 
-            decimal d = sumHoursDevelopment.SumHoursDevelopmentOfTopics(lstTopics);
+            decimal d = sumHoursDevelopment.SumHoursDevelopmentOfTopics(estimate.Topics);
 
             sharedLog.WriteLog($@"Horas desenvolvimento: {d}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
