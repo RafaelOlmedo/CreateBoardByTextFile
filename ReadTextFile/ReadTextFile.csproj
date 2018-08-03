@@ -57,11 +57,11 @@
     <Compile Include="Entities\SubTopic5.cs" />
     <Compile Include="Constants\ErrosCode.cs" />
     <Compile Include="JsonTest.cs" />
+    <Compile Include="Log\SharedLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Topic.cs" />
     <Compile Include="Services\ReadFileText.cs" />
-    <Compile Include="Log\SharedLog.cs" />
     <Compile Include="Validations\ValidationError.cs" />
     <Compile Include="Validations\ValidationResult.cs" />
   </ItemGroup>
