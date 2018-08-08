@@ -10,6 +10,7 @@ using ReadTextFile.Entities.Config;
 using ReadTextFile.Constants;
 using ReadTextFile.Log;
 using ReadTextFile.Services;
+using ReadTextFile.Services.TrelloServices;
 
 namespace ReadTextFile
 {
@@ -83,6 +84,10 @@ namespace ReadTextFile
 
             sharedLog.WriteLog($@"Horas desenvolvimento: {estimate.TotalHoursDevelopment}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             sharedLog.WriteLog($@"Horas teste: {estimate.TotalHoursTest}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+
+            Authentication authentication = new Authentication();
+
+            authentication.Test();
 
 
             endProcess(sharedLog);
