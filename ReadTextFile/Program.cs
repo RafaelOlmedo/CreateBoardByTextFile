@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Linq;
 using ReadTextFile.Entities;
 using ReadTextFile.Entities.Config;
-using ReadTextFile.Constants;
 using ReadTextFile.Log;
 using ReadTextFile.Services;
 using ReadTextFile.Services.TrelloServices;
@@ -31,19 +24,19 @@ namespace ReadTextFile
             ConfigProperties configProperties =
                 new ConfigProperties().readJsonConfigFile();
 
-            if (!configProperties.validationResults.IsValid)
+            if (!configProperties.Valid)
             {
-                sharedLog.WriteLog(configProperties.validationResults.Errors.FirstOrDefault().Message, string.Empty, SharedLog.FileName.Date, SharedLog.LogType.Error);
+                sharedLog.WriteLog(configProperties.Notifications.FirstOrDefault().Message, string.Empty, SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
             }
 
             // Realiza todas validações necessárias para garantir que a classe está consistente.
-            configProperties.ReadingTextFile.validate();
+            configProperties.ValidateReadingTextFile();
 
-            if (!configProperties.ReadingTextFile.validationResults.IsValid)
+            if (configProperties.ReadingTextFile.Invalid)
             {
-                sharedLog.WriteLog(configProperties.ReadingTextFile.validationResults.Errors.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                sharedLog.WriteLog(configProperties.Notifications.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
             }
@@ -56,16 +49,12 @@ namespace ReadTextFile
             estimate.Topics = ReadFileText.readTextFileToObject(configProperties);
 
             // Recupera o primeiro tópico que possa estar com erro.
-            var topicWithError = estimate.Topics.Where(t => !t.validationResults.IsValid).ToList().FirstOrDefault();
+            var topicWithError = estimate.Topics.Where(t => t.Invalid).ToList().FirstOrDefault();
 
             if (topicWithError != null)
-            {
-                // Caso erro seja por valor inválido no tempo para teste ou desenvolvimento, adiciona à mensagem de erro a descrição do tópico.
-                if (topicWithError.validationResults.Errors.FirstOrDefault().Code == ErrosCode.HorasDesenvolvimentoInvalida ||
-                        topicWithError.validationResults.Errors.FirstOrDefault().Code == ErrosCode.HorasTesteInvalida)
-                    topicWithError.validationResults.Errors.FirstOrDefault().Message += $" Tópico: {topicWithError.Description}";
+            {            
 
-                sharedLog.WriteLog(topicWithError.validationResults.Errors.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                sharedLog.WriteLog(topicWithError.Notifications.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
 

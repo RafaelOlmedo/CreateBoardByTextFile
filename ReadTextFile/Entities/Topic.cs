@@ -1,10 +1,6 @@
 ﻿using ReadTextFile.Entities.Base;
 using ReadTextFile.Constants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities
 {
@@ -47,7 +43,7 @@ namespace ReadTextFile.Entities
                     if (decimal.TryParse(sTime, out dTime))
                         topic.TimeDevelopment = dTime;
                     else
-                        topic.validationResults.Add(ErrosCode.HorasDesenvolvimentoInvalida, $@"Valor informado para horas de desenvolvimento não é numérico.");                   
+                        topic.AddNotification(nameof(TimeDevelopment), $@"({ErrosCode.HorasDesenvolvimentoInvalida}) - Valor informado para horas de desenvolvimento não é numérico. Valor informado: {sTime}.");                   
 
                 }
                 else if (lineSplitBySpace[iC].ToString() == "%{background:yellow}[T]")
@@ -58,7 +54,7 @@ namespace ReadTextFile.Entities
                     if (decimal.TryParse(sTime, out dTime))
                         topic.TimeTest = dTime;
                     else
-                        topic.validationResults.Add(ErrosCode.HorasTesteInvalida, $@"Valor informado para horas de teste não é numérico.");
+                        topic.AddNotification(nameof(TimeTest), $@"({ErrosCode.HorasTesteInvalida}) - Valor informado para horas de teste não é numérico. Valor informado: {sTime}.");
 
                     // TODO = Caso não seja número, realizar tratamento.
 

@@ -3,9 +3,7 @@ using ReadTextFile.Entities;
 using ReadTextFile.Entities.Config;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Services
 {
@@ -74,7 +72,7 @@ namespace ReadTextFile.Services
                     {
                         allTopic.explodesLevelOneInformations(allTopic, topicLine);
 
-                        if (!allTopic.validationResults.IsValid)
+                        if (allTopic.Invalid)
                         {
                             lstAllTopics.Add(allTopic);
                             return lstAllTopics;

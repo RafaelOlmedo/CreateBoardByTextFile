@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ReadTextFile.Entities.Base;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities.Config
 {
@@ -35,9 +31,9 @@ namespace ReadTextFile.Entities.Config
                 string ConfigPath = Environment.CurrentDirectory + @"\Config\ConfigProperties.json";
 
                 if (!System.IO.File.Exists(ConfigPath))
-                    configProperties.validationResults.Add("Arquivo de configuração não encontrado.");
+                    configProperties.AddNotification("ConfigPath", "Arquivo de configuração não encontrado.");
 
-                if(configProperties.validationResults.IsValid)
+                if(configProperties.Valid)
                 {
                     // Realiza a leitura do arquivo.
                     StreamReader r = new StreamReader(ConfigPath);
@@ -50,11 +46,18 @@ namespace ReadTextFile.Entities.Config
             }
             catch (Exception ex)
             {
-                this.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
+                this.AddNotification("Exception", $@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
             }
 
             return configProperties;
-        }     
+        }
+        
+        public void ValidateReadingTextFile()
+        {
+            ReadingTextFile.validate();
+
+            AddNotifications(ReadingTextFile.Notifications);
+        }      
 
     }
 }

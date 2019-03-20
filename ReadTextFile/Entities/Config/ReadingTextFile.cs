@@ -12,19 +12,19 @@ namespace ReadTextFile.Entities.Config
         {
             try
             {
-                if (string.IsNullOrEmpty(this.FilePath))
+                if (string.IsNullOrEmpty(FilePath))
                 {
-                    this.validationResults.Add("Caminho do arquivo da estimativa não informado.");
+                    AddNotification(nameof(FilePath), "Caminho do arquivo da estimativa não informado.");
                     return this;
                 }
 
-                if (!System.IO.Directory.Exists(this.FilePath))
-                    this.validationResults.Add($@"Caminho do arquivo informado não existe. Caminho: {this.FilePath}. ");
+                if (!System.IO.Directory.Exists(FilePath))
+                    AddNotification(nameof(FilePath), $@"Caminho do arquivo informado não existe. Caminho: {this.FilePath}. ");
 
             }
             catch (Exception ex)
             {
-                this.validationResults.Add($@"Erro ao validar caminho do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
+                AddNotification("Exception", $@"Erro ao validar caminho do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
             }
 
             return this;
@@ -36,28 +36,26 @@ namespace ReadTextFile.Entities.Config
             {
                 if (string.IsNullOrEmpty(this.FileName))
                 {
-                    this.validationResults.Add("Arquivo de estimativa não informado.");
+                    AddNotification(nameof(FileName), "Arquivo de estimativa não informado.");
                     return this;
                 }
 
-                if (!System.IO.File.Exists(this.FilePath + this.FileName))
-                    this.validationResults.Add($@"Arquivo informado não existe. Arquivo: {this.FilePath + this.FileName}. ");
+                if (!System.IO.File.Exists(FilePath + FileName))
+                    AddNotification("FilePath / FileName", $@"Arquivo informado não existe. Arquivo: {this.FilePath + this.FileName}. ");
 
             }
             catch (Exception ex)
             {
-                this.validationResults.Add($@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
+                AddNotification("Exception", $@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
             }
 
             return this;
         }
 
-        public ReadingTextFile validate()
+        public void validate()
         {
             validIfFilePathExists();
             validIfFileExists();
-
-            return this;
         }
     }
 }

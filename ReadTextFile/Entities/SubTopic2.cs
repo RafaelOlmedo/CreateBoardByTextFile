@@ -1,5 +1,4 @@
 ﻿using ReadTextFile.Entities.Base;
-using System;
 using System.Collections.Generic;
 
 namespace ReadTextFile.Entities
