@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using ReadTextFile.Entities;
+﻿using ReadTextFile.Entities;
 using ReadTextFile.Entities.Config;
 using ReadTextFile.Log;
 using ReadTextFile.Services;
-using ReadTextFile.Services.TrelloServices;
+using System.Linq;
 
-namespace ReadTextFile
+namespace EfforteEstimation.Application
 {
     class Program
     {
@@ -52,19 +51,19 @@ namespace ReadTextFile
             var topicWithError = estimate.Topics.Where(t => t.Invalid).ToList().FirstOrDefault();
 
             if (topicWithError != null)
-            {            
+            {
 
                 sharedLog.WriteLog(topicWithError.Notifications.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
 
             }
-            
+
             if (estimate.Topics == null)
                 sharedLog.WriteLog("Erro ao realizar leitura do arquivo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             else
                 sharedLog.WriteLog("Leitura do arquivo e recuperação das informações realizado com sucesso.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
-    
+
             // Calcula tempo total para desenvolvimento.
             estimate.sumHoursDevelopment();
 
@@ -73,11 +72,6 @@ namespace ReadTextFile
 
             sharedLog.WriteLog($@"Horas desenvolvimento: {estimate.TotalHoursDevelopment}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             sharedLog.WriteLog($@"Horas teste: {estimate.TotalHoursTest}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
-
-            Authentication authentication = new Authentication();
-
-            authentication.Test();
-
 
             endProcess(sharedLog);
 
@@ -88,4 +82,5 @@ namespace ReadTextFile
             sharedLog.WriteLog($@"Processo finalizado.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
         }
     }
+
 }
