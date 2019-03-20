@@ -1,4 +1,12 @@
 ﻿{
-  "FilePath": "C:\\Users\\rafael.freitas\\Desktop\\Projeto Estudo\\",
-  "FileName": "Estimativa.txt"
+    "ReadingTextFile": {
+        "FilePath": "C:\\Users\\rafael.freitas\\Desktop\\Projeto Estudo\\",
+        "FileName": "Estimativa.txt"
+    },
+    "CreateBoard": {
+        "Create": false,
+        "Token": "123456789",
+        "Key": "987654321",
+        "IdBoard": "zxcvfdsa"
+    }
 }

@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Entities\Base\BaseEntity.cs" />
     <Compile Include="Entities\Config\ConfigProperties.cs" />
+    <Compile Include="Entities\Config\CreateBoard.cs" />
+    <Compile Include="Entities\Config\ReadingTextFile.cs" />
     <Compile Include="Entities\Estimate.cs" />
     <Compile Include="Entities\SubTopic2.cs" />
     <Compile Include="Entities\SubTopic3.cs" />

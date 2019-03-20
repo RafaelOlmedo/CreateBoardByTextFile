@@ -14,7 +14,7 @@ namespace ReadTextFile.Services
         public static List<Topic> readTextFileToObject(ConfigProperties configProperties)
         {
             // Realiza a leitura do arquivo e cada linha vira um indice o array.
-            string[] lines = System.IO.File.ReadAllLines(configProperties.FilePath + configProperties.FileName);
+            string[] lines = System.IO.File.ReadAllLines(configProperties.ReadingTextFile.FilePath + configProperties.ReadingTextFile.FileName);
 
             // Lista de StringBuilder. Cada índice da lista será um tópico.
             List<StringBuilder> stringBuilders = new List<StringBuilder>();
@@ -206,7 +206,7 @@ namespace ReadTextFile.Services
             var jsonString = JsonConvert.SerializeObject(lstAllTopics);
 
             // Salva arquivo Json.
-            System.IO.File.WriteAllText(configProperties.FilePath + "JSONTest.json", jsonString.ToString());
+            System.IO.File.WriteAllText(configProperties.ReadingTextFile.FilePath + "JSONTest.json", jsonString.ToString());
         }      
     }
 }

@@ -39,16 +39,16 @@ namespace ReadTextFile
             }
 
             // Realiza todas validações necessárias para garantir que a classe está consistente.
-            configProperties.validate();
+            configProperties.ReadingTextFile.validate();
 
-            if (!configProperties.validationResults.IsValid)
+            if (!configProperties.ReadingTextFile.validationResults.IsValid)
             {
-                sharedLog.WriteLog(configProperties.validationResults.Errors.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                sharedLog.WriteLog(configProperties.ReadingTextFile.validationResults.Errors.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
             }
 
-            sharedLog.WriteLog($@"Informações recuperadas com sucesso: [Caminho do arquivo:] {configProperties.FilePath} [Nome do arquivo:] {configProperties.FileName}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+            sharedLog.WriteLog($@"Informações recuperadas com sucesso: [Caminho do arquivo:] {configProperties.ReadingTextFile.FilePath} [Nome do arquivo:] {configProperties.ReadingTextFile.FileName}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
             sharedLog.WriteLog("Iniciando leitura do arquivo para recuperação das informações.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
