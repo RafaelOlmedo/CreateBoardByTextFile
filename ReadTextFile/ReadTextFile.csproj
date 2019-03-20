@@ -105,9 +105,6 @@
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
-    <Reference Include="TrelloNet, Version=0.7.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TrelloNet.Edge.0.7.2.1\lib\net40-Client\TrelloNet.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Base\BaseEntity.cs" />
@@ -124,7 +121,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Topic.cs" />
     <Compile Include="Services\ReadFileText.cs" />
-    <Compile Include="Services\TrelloServices\Authentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

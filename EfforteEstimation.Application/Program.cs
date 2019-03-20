@@ -60,7 +60,11 @@ namespace EfforteEstimation.Application
             }
 
             if (estimate.Topics == null)
+            {
                 sharedLog.WriteLog("Erro ao realizar leitura do arquivo.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+                endProcess(sharedLog);
+                return;
+            }
             else
                 sharedLog.WriteLog("Leitura do arquivo e recuperação das informações realizado com sucesso.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
