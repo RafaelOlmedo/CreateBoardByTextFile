@@ -107,7 +107,7 @@ namespace ReadTextFile.Services
                         }
 
                         // Adiciona o tópico nível 2 atual ao objeto.
-                        subTopic2 = new SubTopic2(topicLine.ToString());
+                        subTopic2 = new SubTopic2(topicLine.ToString().Replace("##", ""));
                         iLastLevel = 2;
 
 
@@ -137,7 +137,7 @@ namespace ReadTextFile.Services
                             lstSubTopic3 = new List<SubTopic3>();
 
                         // Adiciona o tópico nível 3 atual ao objeto.
-                        subTopic3 = new SubTopic3(topicLine.ToString());
+                        subTopic3 = new SubTopic3(topicLine.ToString().Replace("###", ""));
                         iLastLevel = 3;
                     }
                     // Quarta linha da hierarquia.
@@ -151,7 +151,7 @@ namespace ReadTextFile.Services
                         if (iLastLevel < 4)
                             lstSubTopic4 = new List<SubTopic4>();
 
-                        subTopic4 = new SubTopic4(topicLine.ToString());
+                        subTopic4 = new SubTopic4(topicLine.ToString().Replace("####", ""));
                         iLastLevel = 4;
                     }
                 }
@@ -185,7 +185,7 @@ namespace ReadTextFile.Services
 
             }
 
-            writeJSONFile(lstAllTopics, configProperties);
+            //writeJSONFile(lstAllTopics, configProperties);
 
             return lstAllTopics;
 

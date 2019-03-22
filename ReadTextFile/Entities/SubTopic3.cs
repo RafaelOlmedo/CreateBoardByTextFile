@@ -10,11 +10,12 @@ namespace ReadTextFile.Entities
 
         public SubTopic3()
         {
-
+            Topics = new List<SubTopic4>();
         }
 
         public SubTopic3(string SubTopic)
         {
+            Topics = new List<SubTopic4>();
             DescricaoSubTopic3 = SubTopic;
         }
 

@@ -16,7 +16,7 @@ namespace ReadTextFile.Entities
 
         public Topic()
         {
-            //this.Descricao = Descricao;
+            Topics = new List<SubTopic2>();            
         }
 
         /// <summary>
