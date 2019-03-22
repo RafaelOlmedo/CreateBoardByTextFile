@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A0398A24-96DA-45CB-89EB-0AA7460DBE69}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>EfforteEstimation.Application</RootNamespace>
-    <AssemblyName>EfforteEstimation.Application</AssemblyName>
+    <ProjectGuid>{E79362AE-09BF-4472-8FE9-49C9389C4BBF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HandleTrelloBoard</RootNamespace>
+    <AssemblyName>HandleTrelloBoard</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -36,6 +34,7 @@
     <Reference Include="Flunt, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flunt.1.0.2\lib\netstandard1.3\Flunt.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
@@ -53,7 +52,6 @@
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -95,11 +93,8 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
@@ -108,17 +103,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Entities\Base\BaseEntity.cs" />
+    <Compile Include="Entities\UpdateTemplateBoard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\Authentication.cs" />
+    <Compile Include="Services\UpdateBoard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HandleTrelloBoard\HandleTrelloBoard.csproj">
-      <Project>{E79362AE-09BF-4472-8FE9-49C9389C4BBF}</Project>
-      <Name>HandleTrelloBoard</Name>
+    <ProjectReference Include="..\HandleTrelloBoard.Repository\HandleTrelloBoard.Infra.APITrello.csproj">
+      <Project>{675CACC4-6841-4CA6-9032-9735CCB13C88}</Project>
+      <Name>HandleTrelloBoard.Infra.APITrello</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReadTextFile\ReadTextFile.csproj">
       <Project>{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}</Project>

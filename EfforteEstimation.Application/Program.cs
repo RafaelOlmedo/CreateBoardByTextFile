@@ -1,4 +1,6 @@
-﻿using ReadTextFile.Entities;
+﻿using HandleTrelloBoard.Entities;
+using HandleTrelloBoard.Services;
+using ReadTextFile.Entities;
 using ReadTextFile.Entities.Config;
 using ReadTextFile.Log;
 using ReadTextFile.Services;
@@ -56,7 +58,6 @@ namespace EfforteEstimation.Application
                 sharedLog.WriteLog(topicWithError.Notifications.FirstOrDefault().Message, "", SharedLog.FileName.Date, SharedLog.LogType.Error);
                 endProcess(sharedLog);
                 return;
-
             }
 
             if (estimate.Topics == null)
@@ -76,6 +77,62 @@ namespace EfforteEstimation.Application
 
             sharedLog.WriteLog($@"Horas desenvolvimento: {estimate.TotalHoursDevelopment}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
             sharedLog.WriteLog($@"Horas teste: {estimate.TotalHoursTest}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+
+            sharedLog.WriteLog($@"Concluído processo de análise da estimativa de horas.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+
+
+
+
+            #region Processo para o Quadro.
+
+            sharedLog.WriteLog($@"Iniciando processo para manipulação do quadro.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+
+
+            // Valida se está configurado para manipular o quadro.
+            if (!configProperties.CreateBoard.Create)
+            {
+                sharedLog.WriteLog("Não está configurado para realizar a manipulação do quadro.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+                endProcess(sharedLog);
+                return;
+            }
+
+            Authentication authentication = new Authentication(configProperties.CreateBoard.Key, configProperties.CreateBoard.Token);
+            var trello = authentication.Authenticate();
+
+            if (authentication.Invalid)
+            {
+                sharedLog.WriteLog($"Erro ao realizar autenticação do processo. Retorno: {authentication.Notifications.FirstOrDefault().Message}.", "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                endProcess(sharedLog);
+                return;
+            }
+
+            sharedLog.WriteLog($"Iniciando processo de atualização do quadro.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+
+            var updateTemplateBoard = new UpdateTemplateBoard
+                (
+                    configProperties.CreateBoard.Key,
+                    configProperties.CreateBoard.Token,
+                    configProperties.CreateBoard.IdBoard, 
+                    estimate, 
+                    trello
+                 );
+
+            UpdateBoard updateBoard = new UpdateBoard();
+
+            updateBoard.UpdateTemplateBoard(updateTemplateBoard);
+
+            if(updateTemplateBoard.Invalid)
+            {
+                sharedLog.WriteLog($"Erro ao realizar atualização do quadro. Retorno: {updateTemplateBoard.Notifications.FirstOrDefault().Message}.", "", SharedLog.FileName.Date, SharedLog.LogType.Error);
+                endProcess(sharedLog);
+                return;
+            }
+
+
+    
+
+            #endregion
+
 
             endProcess(sharedLog);
 
