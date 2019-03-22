@@ -1,5 +1,6 @@
 ﻿using HandleTrelloBoard.Entities.Base;
 using ReadTextFile.Entities;
+using System.Collections.Generic;
 using TrelloNet;
 
 namespace HandleTrelloBoard.Entities
@@ -14,6 +15,8 @@ namespace HandleTrelloBoard.Entities
                 .Replace("https://trello.com/b/", "");
             Estimate = estimate;
             Trello = trello;
+
+            Cards = new List<Card>();
         }
 
         public string Key { get; private set; }
@@ -23,6 +26,7 @@ namespace HandleTrelloBoard.Entities
         public Trello Trello { get; private set; }
         public Board TemplateBoard { get; private set; }
         public List BacklogList { get; private set; }
+        public List<Card> Cards { get; private set; }
 
         public void AddTemplateBoard(Board board)
         {
@@ -38,5 +42,8 @@ namespace HandleTrelloBoard.Entities
 
         public void AddBacklogList(List list) =>
             BacklogList = list;
+
+        public void AddCard(Card card) =>
+            Cards.Add(card);
     }
 }

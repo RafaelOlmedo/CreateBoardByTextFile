@@ -4,7 +4,6 @@
     {
         public static int ScoreCount;
 
-        //public static string TopicLevel1 = $"+ **Ponto {ScoreCount}: **";
         public const string TopicLevel2 = " + ";
         public const string TopicLevel3 = "   +";
         public const string TopicLevel4 = "     +";
@@ -12,7 +11,7 @@
 
         public static string GetTopicLevel1()
         {
-            return $"+ **Ponto { ScoreCount}: **";
+            return $"+ **Ponto {ScoreCount}: **";
         }
     }
 }

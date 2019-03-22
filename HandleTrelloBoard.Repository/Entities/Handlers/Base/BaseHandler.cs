@@ -1,16 +1,19 @@
-﻿using Flunt.Notifications;
+﻿using Newtonsoft.Json;
 
 namespace HandleTrelloBoard.Repository.Entities.Base
 {
-    public abstract class BaseEntity : Notifiable
+    public abstract class BaseHandler
     {
-        public BaseEntity(string key, string token)
+        public BaseHandler(string key, string token)
         {
             Key = key;
             Token = token;
         }
 
+        [JsonProperty("key")]
         public string Key { get; private set; }
+
+        [JsonProperty("token")]
         public string Token { get; private set; }
     }
 }

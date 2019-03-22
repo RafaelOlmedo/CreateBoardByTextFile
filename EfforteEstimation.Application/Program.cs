@@ -128,8 +128,19 @@ namespace EfforteEstimation.Application
                 return;
             }
 
+            sharedLog.WriteLog($"Concluído processo de criação dos cartões no quadro {updateTemplateBoard.TemplateBoard.Name}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+            sharedLog.WriteLog($"Cartões criados:", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
 
-    
+            int countCards = 0;
+
+            foreach (var card in updateTemplateBoard.Cards)
+            {
+                countCards++;
+                sharedLog.WriteLog($"{countCards} - {card.Name}", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+            }
+
+            sharedLog.WriteLog($"Concluído processo de atualização do quadro {updateTemplateBoard.TemplateBoard.Name}.", "", SharedLog.FileName.Date, SharedLog.LogType.Message);
+                       
 
             #endregion
 

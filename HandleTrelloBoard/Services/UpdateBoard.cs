@@ -1,4 +1,5 @@
 ﻿using HandleTrelloBoard.Entities;
+using HandleTrelloBoard.Repository.Entities;
 using HandleTrelloBoard.Repository.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace HandleTrelloBoard.Services
     {
         public UpdateTemplateBoard UpdateTemplateBoard(UpdateTemplateBoard updateTemplateBoard)
         {
-            #region 1° - Recupera quadro template.
+            #region 1 - Recupera quadro template.
 
             if (string.IsNullOrEmpty(updateTemplateBoard.IdTemplateBoard))
             {
@@ -26,7 +27,7 @@ namespace HandleTrelloBoard.Services
 
             #endregion
 
-            #region 2° - Recupera lista 'Backlog' no quadro template.
+            #region 2 - Recupera lista 'Backlog' no quadro template.
 
             GetBacklogList(updateTemplateBoard);
 
@@ -35,19 +36,39 @@ namespace HandleTrelloBoard.Services
 
             #endregion
 
-            #region 3° - Cria os cartões.
+            #region 3 - Cria os cartões.
 
             CardRepository cardRepository = new CardRepository();
 
             foreach (var topic in updateTemplateBoard.Estimate.Topics)
             {
-                cardRepository.AddCard
-                    (
-                        updateTemplateBoard.Key,
-                        updateTemplateBoard.Token,
-                        updateTemplateBoard.BacklogList.Id,
-                        topic
-                    );
+                var createCard = new CreateCard
+                                (
+                                    updateTemplateBoard.Key,
+                                    updateTemplateBoard.Token,
+                                    updateTemplateBoard.BacklogList.Id,
+                                    topic
+                                );
+
+                var createCardResponse = cardRepository.AddCard(createCard);
+
+                if(createCard.Invalid)
+                {
+                    updateTemplateBoard.AddNotification(createCard.Notifications.FirstOrDefault().Property, createCard.Notifications.FirstOrDefault().Message);
+                    return updateTemplateBoard;
+                }
+
+                Card card = new Card();
+
+                card.Id = createCardResponse.Id;
+                card.Desc = createCardResponse.Description;
+                card.Name = createCardResponse.Name;
+
+                updateTemplateBoard.AddCard(card);
+
+                #region 3.1 - Cria o CheckList "Tópicos a serem desenvolvidos".
+
+                #endregion
             }
 
             #endregion
@@ -57,7 +78,7 @@ namespace HandleTrelloBoard.Services
         }
 
         private UpdateTemplateBoard GetBoardById(UpdateTemplateBoard updateTemplateBoard)
-        {           
+        {
             try
             {
                 var templateBoard = updateTemplateBoard.Trello.Boards.WithId(updateTemplateBoard.IdTemplateBoard);
