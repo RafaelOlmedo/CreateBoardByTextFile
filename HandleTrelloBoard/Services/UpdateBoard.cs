@@ -58,16 +58,65 @@ namespace HandleTrelloBoard.Services
                     return updateTemplateBoard;
                 }
 
-                Card card = new Card();
-
-                card.Id = createCardResponse.Id;
-                card.Desc = createCardResponse.Description;
-                card.Name = createCardResponse.Name;
+                Card card = new Card()
+                {
+                    Id = createCardResponse.Id,
+                    Desc = createCardResponse.Description,
+                    Name = createCardResponse.Name,
+                };
 
                 updateTemplateBoard.AddCard(card);
 
                 #region 3.1 - Cria o CheckList "Tópicos a serem desenvolvidos".
 
+                CheckListRepository checkListRepository = new CheckListRepository();
+
+                var createCheckList = new CreateCheckList
+                    (
+                       updateTemplateBoard.Key,
+                       updateTemplateBoard.Token,
+                       createCardResponse.Id,
+                       "Tópicos que serão desenvolvidos"
+                    );
+
+                // Não grava em nunhum lugar essa informação no momento, pois não é necessária. Caso em algum momento seja necessário utilizar essa informação, necessário implementar.
+                var createCheckListResponse = checkListRepository.AddCheckList(createCheckList);
+
+                if (createCheckList.Invalid)
+                {
+                    updateTemplateBoard.AddNotification(createCheckList.Notifications.FirstOrDefault().Property, createCheckList.Notifications.FirstOrDefault().Message);
+                    return updateTemplateBoard;
+                }
+
+                #endregion
+
+                #region 3.2 - Cria os itens para o CheckList "Tópicos a serem desenvolvidos".
+
+                int checkListItemCount = 0;
+
+                foreach (var topic2 in topic.Topics)
+                {
+                    checkListItemCount++;
+
+                    CheckListItemRepository checkListItemRepository = new CheckListItemRepository();
+
+                    var createCheckListItem = new CreateCheckListItem
+                        (
+                           updateTemplateBoard.Key,
+                           updateTemplateBoard.Token,
+                           createCheckListResponse.Id,
+                           $"Ponto {checkListItemCount}"
+                        );
+
+                    var checkListItemResponse = checkListItemRepository.AddCheckListItem(createCheckListItem);
+
+                    if (createCheckList.Invalid)
+                    {
+                        updateTemplateBoard.AddNotification(createCheckList.Notifications.FirstOrDefault().Property, createCheckList.Notifications.FirstOrDefault().Message);
+                        return updateTemplateBoard;
+                    }
+                }
+                                
                 #endregion
             }
 
@@ -105,8 +154,7 @@ namespace HandleTrelloBoard.Services
             }
 
             var backlogList = templateBoardLists
-                .Where(l => l.Name == "Backlog")
-                .FirstOrDefault();
+                .FirstOrDefault(l => l.Name == "Backlog");
 
             if (backlogList == null)
             {

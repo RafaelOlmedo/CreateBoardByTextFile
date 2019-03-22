@@ -115,13 +115,21 @@
     <Compile Include="Constants\FormatCardDescription.cs" />
     <Compile Include="Constants\IntegrationTypes.cs" />
     <Compile Include="Entities\Base\BaseEntity.cs" />
+    <Compile Include="Entities\CreateCheckList.cs" />
     <Compile Include="Entities\CreateCard.cs" />
+    <Compile Include="Entities\CreateCheckListItem.cs" />
     <Compile Include="Entities\Handlers\Base\BaseHandler.cs" />
     <Compile Include="Entities\Handlers\CreateCardHandler.cs" />
+    <Compile Include="Entities\Handlers\CreateCheckListHandler.cs" />
+    <Compile Include="Entities\Handlers\CreateCheckListItemHandler.cs" />
     <Compile Include="Entities\Responses\CreateCardResponse.cs" />
+    <Compile Include="Entities\Responses\CreateCheckListItemResponse.cs" />
+    <Compile Include="Entities\Responses\CreateCheckListResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Base\BaseRepository.cs" />
     <Compile Include="Repositories\CardRepository.cs" />
+    <Compile Include="Repositories\CheckListItemRepository.cs" />
+    <Compile Include="Repositories\CheckListRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
