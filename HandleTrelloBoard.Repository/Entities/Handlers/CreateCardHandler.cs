@@ -33,19 +33,19 @@ namespace HandleTrelloBoard.Repository.Entities.Handlers
             {
                 FormatCardDescription.ScoreCount++;
 
-                description.AppendLine(FormatCardDescription.GetTopicLevel1() + topic2.DescricaoSubTopic2);
+                description.AppendLine(FormatCardDescription.GetTopicLevel1() + topic2.DescricaoSubTopic2.Replace("*", "**"));
 
                 foreach (var topic3 in topic2.Topics)
                 {
-                    description.AppendLine(FormatCardDescription.TopicLevel2 + topic3.DescricaoSubTopic3);
+                    description.AppendLine(FormatCardDescription.TopicLevel2 + topic3.DescricaoSubTopic3.Replace("*", "**"));
 
                     foreach (var topic4 in topic3.Topics)
                     {
-                        description.AppendLine(FormatCardDescription.TopicLevel3 + topic4.DescricaoSubTopic4);
+                        description.AppendLine(FormatCardDescription.TopicLevel3 + topic4.DescricaoSubTopic4.Replace("*", "**"));
 
                         foreach (var topic5 in topic4.Topics)
                         {
-                            description.AppendLine(FormatCardDescription.TopicLevel4 + topic5.DescricaoSubTopic5);
+                            description.AppendLine(FormatCardDescription.TopicLevel4 + topic5.DescricaoSubTopic5.Replace("*", "**"));
                         }
                     }
                 }                
