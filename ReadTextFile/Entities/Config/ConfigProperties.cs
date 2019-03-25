@@ -1,21 +1,14 @@
 ﻿using Newtonsoft.Json;
 using ReadTextFile.Entities.Base;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities.Config
 {
     public class ConfigProperties : BaseEntity
-    {
-        // TODO - Private set.
-
-        public string FilePath { get; set; }
-        public string FileName { get; set; }
-        
+    {        
+        public ReadingTextFile ReadingTextFile { get; set; }
+        public CreateBoard CreateBoard { get; set; }        
 
         public ConfigProperties() 
         {
@@ -38,9 +31,9 @@ namespace ReadTextFile.Entities.Config
                 string ConfigPath = Environment.CurrentDirectory + @"\Config\ConfigProperties.json";
 
                 if (!System.IO.File.Exists(ConfigPath))
-                    configProperties.validationResults.Add("Arquivo de configuração não encontrado.");
+                    configProperties.AddNotification("ConfigPath", "Arquivo de configuração não encontrado.");
 
-                if(configProperties.validationResults.IsValid)
+                if(configProperties.Valid)
                 {
                     // Realiza a leitura do arquivo.
                     StreamReader r = new StreamReader(ConfigPath);
@@ -53,63 +46,18 @@ namespace ReadTextFile.Entities.Config
             }
             catch (Exception ex)
             {
-                this.validationResults.Add($@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
+                this.AddNotification("Exception", $@"Erro ao recuparar informações de configuração. Retorno {ex.Message}.");
             }
 
             return configProperties;
         }
-
-        public ConfigProperties validIfFilePathExists()
+        
+        public void ValidateReadingTextFile()
         {
-            try
-            {
-                if (string.IsNullOrEmpty(this.FilePath))
-                {
-                    this.validationResults.Add("Caminho do arquivo da estimativa não informado.");
-                    return this;
-                }
+            ReadingTextFile.validate();
 
-                if (!System.IO.Directory.Exists(this.FilePath))
-                    this.validationResults.Add($@"Caminho do arquivo informado não existe. Caminho: {this.FilePath}. ");
-
-            }
-            catch (Exception ex)
-            {
-                this.validationResults.Add($@"Erro ao validar caminho do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
-            }
-
-            return this;
-        }
-
-        public ConfigProperties validIfFileExists()
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(this.FileName))
-                {
-                    this.validationResults.Add("Arquivo de estimativa não informado.");
-                    return this;
-                }
-
-                if (!System.IO.File.Exists(this.FilePath + this.FileName))
-                    this.validationResults.Add($@"Arquivo informado não existe. Arquivo: {this.FilePath + this.FileName}. ");
-
-            }
-            catch (Exception ex)
-            {
-                this.validationResults.Add($@"Erro ao validar nome do arquivo no arquivo de configuração. Retorno: {ex.Message}.");
-            }
-
-            return this;
-        }
-
-        public ConfigProperties validate()
-        {
-            validIfFilePathExists();
-            validIfFileExists();
-
-            return this;
-        }
+            AddNotifications(ReadingTextFile.Notifications);
+        }      
 
     }
 }

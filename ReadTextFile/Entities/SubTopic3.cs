@@ -1,9 +1,5 @@
 ﻿using ReadTextFile.Entities.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Entities
 {
@@ -14,11 +10,12 @@ namespace ReadTextFile.Entities
 
         public SubTopic3()
         {
-
+            Topics = new List<SubTopic4>();
         }
 
         public SubTopic3(string SubTopic)
         {
+            Topics = new List<SubTopic4>();
             DescricaoSubTopic3 = SubTopic;
         }
 

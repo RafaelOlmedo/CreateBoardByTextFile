@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ReadTextFile</RootNamespace>
-    <AssemblyName>ReadTextFile</AssemblyName>
+    <ProjectGuid>{A0398A24-96DA-45CB-89EB-0AA7460DBE69}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EfforteEstimation.Application</RootNamespace>
+    <AssemblyName>EfforteEstimation.Application</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,9 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flunt, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -105,30 +103,27 @@
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
+    <Reference Include="TrelloNet, Version=0.7.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TrelloNet.Edge.0.7.2.1\lib\net40-Client\TrelloNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Base\BaseEntity.cs" />
-    <Compile Include="Entities\Config\ConfigProperties.cs" />
-    <Compile Include="Entities\Config\CreateBoard.cs" />
-    <Compile Include="Entities\Config\ReadingTextFile.cs" />
-    <Compile Include="Entities\Estimate.cs" />
-    <Compile Include="Entities\SubTopic2.cs" />
-    <Compile Include="Entities\SubTopic3.cs" />
-    <Compile Include="Entities\SubTopic4.cs" />
-    <Compile Include="Entities\SubTopic5.cs" />
-    <Compile Include="Constants\ErrosCode.cs" />
-    <Compile Include="Log\SharedLog.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Topic.cs" />
-    <Compile Include="Services\ReadFileText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Config\ConfigProperties.json" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HandleTrelloBoard\HandleTrelloBoard.csproj">
+      <Project>{E79362AE-09BF-4472-8FE9-49C9389C4BBF}</Project>
+      <Name>HandleTrelloBoard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReadTextFile\ReadTextFile.csproj">
+      <Project>{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}</Project>
+      <Name>ReadTextFile</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

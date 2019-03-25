@@ -3,9 +3,7 @@ using ReadTextFile.Entities;
 using ReadTextFile.Entities.Config;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadTextFile.Services
 {
@@ -14,7 +12,7 @@ namespace ReadTextFile.Services
         public static List<Topic> readTextFileToObject(ConfigProperties configProperties)
         {
             // Realiza a leitura do arquivo e cada linha vira um indice o array.
-            string[] lines = System.IO.File.ReadAllLines(configProperties.FilePath + configProperties.FileName);
+            string[] lines = System.IO.File.ReadAllLines(configProperties.ReadingTextFile.FilePath + configProperties.ReadingTextFile.FileName);
 
             // Lista de StringBuilder. Cada índice da lista será um tópico.
             List<StringBuilder> stringBuilders = new List<StringBuilder>();
@@ -74,7 +72,7 @@ namespace ReadTextFile.Services
                     {
                         allTopic.explodesLevelOneInformations(allTopic, topicLine);
 
-                        if (!allTopic.validationResults.IsValid)
+                        if (allTopic.Invalid)
                         {
                             lstAllTopics.Add(allTopic);
                             return lstAllTopics;
@@ -109,7 +107,7 @@ namespace ReadTextFile.Services
                         }
 
                         // Adiciona o tópico nível 2 atual ao objeto.
-                        subTopic2 = new SubTopic2(topicLine.ToString());
+                        subTopic2 = new SubTopic2(topicLine.ToString().Replace("##", ""));
                         iLastLevel = 2;
 
 
@@ -139,7 +137,7 @@ namespace ReadTextFile.Services
                             lstSubTopic3 = new List<SubTopic3>();
 
                         // Adiciona o tópico nível 3 atual ao objeto.
-                        subTopic3 = new SubTopic3(topicLine.ToString());
+                        subTopic3 = new SubTopic3(topicLine.ToString().Replace("###", ""));
                         iLastLevel = 3;
                     }
                     // Quarta linha da hierarquia.
@@ -153,7 +151,7 @@ namespace ReadTextFile.Services
                         if (iLastLevel < 4)
                             lstSubTopic4 = new List<SubTopic4>();
 
-                        subTopic4 = new SubTopic4(topicLine.ToString());
+                        subTopic4 = new SubTopic4(topicLine.ToString().Replace("####", ""));
                         iLastLevel = 4;
                     }
                 }
@@ -187,7 +185,7 @@ namespace ReadTextFile.Services
 
             }
 
-            writeJSONFile(lstAllTopics, configProperties);
+            //writeJSONFile(lstAllTopics, configProperties);
 
             return lstAllTopics;
 
@@ -206,7 +204,7 @@ namespace ReadTextFile.Services
             var jsonString = JsonConvert.SerializeObject(lstAllTopics);
 
             // Salva arquivo Json.
-            System.IO.File.WriteAllText(configProperties.FilePath + "JSONTest.json", jsonString.ToString());
+            System.IO.File.WriteAllText(configProperties.ReadingTextFile.FilePath + "JSONTest.json", jsonString.ToString());
         }      
     }
 }

@@ -14,10 +14,10 @@ namespace ReadTextFile.Entities
         public List<Topic> Topics { get; set; }
 
         public void sumHoursDevelopment() =>        
-            this.TotalHoursDevelopment = this.Topics.Sum(t => t.TimeDevelopment);
+            TotalHoursDevelopment = Topics.Sum(t => t.TimeDevelopment);
 
         public void sumHoursTest() =>
-            this.TotalHoursTest = this.Topics.Sum(t => t.TimeTest);
+            TotalHoursTest = Topics.Sum(t => t.TimeTest);
 
 
     }

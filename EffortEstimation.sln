@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadTextFile", "ReadTextFile\ReadTextFile.csproj", "{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfforteEstimation.Application", "EfforteEstimation.Application\EfforteEstimation.Application.csproj", "{A0398A24-96DA-45CB-89EB-0AA7460DBE69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Application", "01 - Application", "{B9D00816-981A-43EF-8745-C40AF4098878}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Services", "02 - Services", "{C3E6BC92-5028-423D-B776-C8A520831A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandleTrelloBoard", "HandleTrelloBoard\HandleTrelloBoard.csproj", "{E79362AE-09BF-4472-8FE9-49C9389C4BBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Infra", "03 - Infra", "{6E1BB338-7B3F-44B1-AF32-D125C21F5253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandleTrelloBoard.Infra.APITrello", "HandleTrelloBoard.Repository\HandleTrelloBoard.Infra.APITrello.csproj", "{675CACC4-6841-4CA6-9032-9735CCB13C88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F6EB77-518A-4185-8E95-E5D87B3EF3F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0398A24-96DA-45CB-89EB-0AA7460DBE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0398A24-96DA-45CB-89EB-0AA7460DBE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0398A24-96DA-45CB-89EB-0AA7460DBE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0398A24-96DA-45CB-89EB-0AA7460DBE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E79362AE-09BF-4472-8FE9-49C9389C4BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E79362AE-09BF-4472-8FE9-49C9389C4BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E79362AE-09BF-4472-8FE9-49C9389C4BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E79362AE-09BF-4472-8FE9-49C9389C4BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675CACC4-6841-4CA6-9032-9735CCB13C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675CACC4-6841-4CA6-9032-9735CCB13C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675CACC4-6841-4CA6-9032-9735CCB13C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675CACC4-6841-4CA6-9032-9735CCB13C88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{09F6EB77-518A-4185-8E95-E5D87B3EF3F5} = {C3E6BC92-5028-423D-B776-C8A520831A33}
+		{A0398A24-96DA-45CB-89EB-0AA7460DBE69} = {B9D00816-981A-43EF-8745-C40AF4098878}
+		{E79362AE-09BF-4472-8FE9-49C9389C4BBF} = {C3E6BC92-5028-423D-B776-C8A520831A33}
+		{675CACC4-6841-4CA6-9032-9735CCB13C88} = {6E1BB338-7B3F-44B1-AF32-D125C21F5253}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E74069A9-4FE8-48F3-A687-A2C7F5F5C7B8}
+	EndGlobalSection
+EndGlobal
